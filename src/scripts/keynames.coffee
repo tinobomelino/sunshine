@@ -70,6 +70,8 @@ define [], ->
 		@get_name: (keycode) ->
 			if keycode > 47 and keycode < 91
 				return String.fromCharCode(keycode)
+			if keycode >= 300
+				return "button"+(keycode-300)
 			return Keynames._name[keycode]
 	return Keynames.get_name
 

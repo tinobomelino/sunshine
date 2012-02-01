@@ -14,15 +14,18 @@ define ['scripts/view','scripts/InputStack'],(view,InputStack) ->
 			console.log " BLUR"
 		keyup: (event) ->
 			ievent = @stack.cb_keyup(event)
+			console.log ievent
 			@input(ievent,event)
 		keydown: (event) ->	
 			ievent = @stack.cb_keydown(event)
-			@input(ievent,event)
+			if ievent
+				@input(ievent,event)
 		mousedown: (event) ->	
 			sel = $(event.target)
-			console.log "mousedown",sel,event	
 			ievent = @stack.cb_keydown(event)
-			console.log "im:",ievent,ievent.readable()		
+			console.log ievent
+			if ievent
+				$("#input").text(ievent.readable())	
 			if sel.hasClass("grab")
 				v = view.View.get_view(sel)
 				console.log "grabbing", v
@@ -47,6 +50,8 @@ define ['scripts/view','scripts/InputStack'],(view,InputStack) ->
 			return false
 			
 		input: (stack,event) ->
+			if stack
+				$("#input").text(stack.readable())	
 			console.log "input", stack.readable()
 			if stack and stack.readable() == "/E/N"
 				# new note, /ctrl/N doesnt work in chrome
@@ -87,6 +92,8 @@ define ['scripts/view','scripts/InputStack'],(view,InputStack) ->
 			event.preventDefault()
 			sel = event.target;
 			ievent = @stack.cb_keyup(event)
+			if ievent
+				$("#input").text(ievent.readable())	
 			console.log "im:",ievent,ievent.readable()	
 			#@input(event)
 		get_view: (dom)->

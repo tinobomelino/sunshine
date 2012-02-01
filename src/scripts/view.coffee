@@ -122,11 +122,9 @@ define ['scripts/model'],(model) ->
 			@paths.push([v,path])
 			v.paths.push([this,path])
 		cb_moved: () ->
-			console.log "CB MOVED",this,@dom
 			for elem in @paths
 				v = elem[0]
 				path = elem[1]
-				console.log v,path
 				offset = @dom.offset()
 				voffset = v.dom.offset()
 				p = "M"+offset.left+" "+offset.top+"L"+voffset.left+" "+voffset.top
